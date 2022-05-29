@@ -1,0 +1,16 @@
+An array, 1D should be enough, to check for three I can check first, 
+horizontally that is 1-3, 3-6, 6-9 and then for each square + 3 - that is 
+1 == 1 + 3 == 1 + 3 + 3, checks if 1,4,7 are equal (vertical 3). Though now that
+I think about it 2D can work easy as well, I'll see.
+
+A gameboard array will be stored within gameboard object. Will likely also
+include checkForThree(), render(), getArray(), checkIfTaken() and 
+generateAiMove() is what I am thinking right now.
+
+Since there are two players I will create a factory function. Each player will 
+have score. 
+
+Everythink will be wrapped up in a module or a factory.
+
+For now I'll leave it here.
+
