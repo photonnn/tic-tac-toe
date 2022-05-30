@@ -30,4 +30,6 @@ container will have 3 rows and 3 columns. The container itself will have 9 divs,
 and then I'll use nth child to make borders to differentiate different spots 
 that you can place X or O.
 
+Now that I've made it change textContent when you click the div and add class 
+taken I will make it so that it changes between X and Os.
 
