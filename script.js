@@ -21,7 +21,7 @@
 
     function generateAiMove() {
         while (true) {
-            let n = Math.floor(Math.random() * 9 - 1) + 1;
+            let n = Math.floor(Math.random() * (10 - 1)) + 1;
             for (let em of boxes) {
                 if (+em.id === n && em.textContent == "") {
                     return n;
@@ -102,10 +102,8 @@
             em.addEventListener('click', play);
         }
 
-        const p = document.querySelector("p");
-        const playAgain = document.querySelector("button");
-        p.remove();
-        playAgain.remove();
+        document.querySelector("p").remove();
+        document.querySelector("button").remove();
 
         gameboard.array = ["", "", "", "", "", "", "", "", ""]
     }
@@ -149,3 +147,4 @@
     newRound();
 
 })();
+
