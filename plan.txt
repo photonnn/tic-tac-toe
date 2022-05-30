@@ -30,6 +30,25 @@ container will have 3 rows and 3 columns. The container itself will have 9 divs,
 and then I'll use nth child to make borders to differentiate different spots 
 that you can place X or O.
 
+3)
 Now that I've made it change textContent when you click the div and add class 
-taken I will make it so that it changes between X and Os.
+taken I will make it so that it changes between X and Os. Had a few issues here,
+but managed to resolve them, was a stupid bug, forgot the - 1 for index.
+
+Now for checkForThree() function, I'll first do a check for vertical check.
+
+Kind of speedrun the next section. I basically finished the basic version of 
+the game. The next step is to create a hidden element that shows at the 
+beginning or after a user chooses to play again. A window is opened and the 
+background is faded. The user is goven an option to choose either X or O. Based
+on that choice game runs differently. It is also a good choice to modify the 
+play function, perhaps even create an object to control the flow of the game,
+I'll see. After that is done the last step is to create a strong AI, maybe even
+option to choose between the two, easy and hard. As for how the strong AI will 
+work, there are some algorithms such as minmax(), but I feel I can manage to 
+create an impossible to beat AI by creating a few core steps for AI to follow. 
+That means priority is to always first checkForThree and prevent that, than
+it is to place in the center, if center is taken take an even box or odd based 
+on circumstanced, something like that. I can then play again google tic-tic-toe 
+for a basic test if my AI is unbeatable.
 

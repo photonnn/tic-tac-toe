@@ -12,6 +12,13 @@ body {
     height: 100vh;
     background-color: black;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game {
+    display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
 }
@@ -49,4 +56,19 @@ body {
 
 .box:hover {
     opacity: 30%;
+}
+
+p {
+    margin-bottom: 50px;
+    font-size: 6rem;
+}
+
+.playerScore, .aiScore {
+    font-size: 6rem;
+}
+
+button {
+    color: black;
+    margin-bottom: 50px;
+    font-size: 2rem;
 }
