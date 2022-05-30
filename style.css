@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     color: white;
+    font-family: 'Source Code Pro', monospace;
 }
 
 body {
@@ -25,6 +28,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: repeat(3, auto);
+    font-size: 3rem;
 }
 
 .box:nth-child(3n+1) {
@@ -41,4 +45,8 @@ body {
 
 .box:nth-child(n-6) {
     border-top: none;
+}
+
+.box:hover {
+    opacity: 30%;
 }
