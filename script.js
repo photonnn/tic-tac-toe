@@ -102,9 +102,15 @@
             em.addEventListener('click', play);
         }
 
-        document.querySelector("p").remove();
-        document.querySelector("button").remove();
-
+        try {
+            document.querySelector("p").remove();
+            document.querySelector("button").remove();
+        } catch (err) {
+            // when newRound() is first ran, p and button have not been
+            // created yet, leave it like this untill decision for design is
+            // made!
+        }
+            
         gameboard.array = ["", "", "", "", "", "", "", "", ""]
     }
 
