@@ -104,15 +104,33 @@
     }
 
     function getSymbol() {
-        player.symbol = prompt("X or O");
-        if (player.symbol === "X") {
+        const X = document.querySelector(".X");
+        const O = document.querySelector(".O");
+        X.addEventListener('click', () => {
             AI.symbol = "O";
-        } else {
+            player.symbol = "X";
+            hideCover();
+        })
+        O.addEventListener('click', () => {
             AI.symbol = "X";
-            aiTurn(); 
-            // AI has to initiate move, because it is usually 
-            // responsive
-        }
+            player.symbol = "O";
+            hideCover();
+            aiTurn();
+        })
+    }
+
+    function hideCover() {
+        const div = document.querySelector(".choice");
+        const cover = document.querySelector(".cover");
+        div.style.visibility = "hidden";
+        cover.style.display = "none";
+    }
+
+    function makeCover() {
+        const div = document.querySelector(".choice");
+        div.style.visibility = "initial";
+        const cover = document.querySelector(".cover");
+        cover.style.display = "block";
     }
 
     function newRound() {
@@ -128,7 +146,7 @@
         gameboard.array = ["", "", "", "", "", "", "", "", ""]
 
         clearBoxes();
-        getSymbol();
+        makeCover();
     }
 
     function renderScore(obj) {
@@ -147,6 +165,15 @@
             renderScore(player);
             return "R";
         }
+
+        return checkForDraw();
+    }
+
+    function checkForDraw() {
+        if (!isThereSpaceLeft()) {
+            gameOver("DRAW");
+            return "R";
+        }
     }
 
     function aiTurn() {
@@ -159,10 +186,8 @@
                 renderScore(AI);
                 return "R";
             }
-        } else {
-            gameOver("DRAW");
-            return "R";
         }
+        return checkForDraw();
     }
 
     function play() {
@@ -176,6 +201,7 @@
 
 
     const boxes = [...document.querySelectorAll(".box")];
+    getSymbol();
     newRound();
 
 })();
