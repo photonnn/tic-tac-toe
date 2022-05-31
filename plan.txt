@@ -55,5 +55,9 @@ on circumstanced, something like that. I can then play again google tic-tic-toe
 for a basic test if my AI is unbeatable.
 
 4) Pretty much done with the game apart from making an actual AI. For that 
-purpose I have decided to create a module.
+purpose I have decided to create a module. I have decided to do it with minmax
+algorithm, I did not favor it before, because I felt it is better to make it 
+on my own, but I figured I can just learn the theory behind minmax and do an 
+implemntation on my own rather than looking up how to minmax specfically for 
+tic-tac-toe, what I thought to be the case at first, for some reason.
 
