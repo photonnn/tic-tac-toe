@@ -1,3 +1,30 @@
+const AIModule = (() => {
+    let array = [];
+    let AI = {};
+    
+
+    const RandomMove = () => {
+        // this is only temporary solution
+        const boxes = [...document.querySelectorAll(".box")];
+        while (true) {
+            let n = Math.floor(Math.random() * (10 - 1)) + 1;
+            for (let em of boxes) {
+                if (+em.id === n && em.textContent == "") {
+                    return n;
+                }
+            }
+        }
+    }
+
+    const generateMove = (arr, obj) => {
+        array = arr;
+        AI = obj;
+
+        return RandomMove();
+    }
+    return { generateMove };
+})();
+
 (() => {
     const gameboard = {
         array: ["", "", "", "", "", "", "", "", ""],
@@ -17,17 +44,6 @@
 
     function makeMove(obj, index) {
         gameboard.array[index] = obj.symbol;
-    }
-
-    function generateAiMove() {
-        while (true) {
-            let n = Math.floor(Math.random() * (10 - 1)) + 1;
-            for (let em of boxes) {
-                if (+em.id === n && em.textContent == "") {
-                    return n;
-                }
-            }
-        }
     }
 
     function render(id) {
@@ -178,7 +194,7 @@
 
     function aiTurn() {
         if (isThereSpaceLeft()) {
-            let aiMoveIndex = generateAiMove();
+            let aiMoveIndex = AIModule.generateMove();
             makeMove(AI, aiMoveIndex - 1);
             render(aiMoveIndex);
             if (checkForThree()) {
@@ -206,3 +222,18 @@
 
 })();
 
+
+
+
+
+/*
+const generateAiMove = () => {
+    while (true) {
+        let n = Math.floor(Math.random() * (10 - 1)) + 1;
+        for (let em of boxes) {
+            if (+em.id === n && em.textContent == "") {
+                return n;
+            }
+        }
+    }
+} */
