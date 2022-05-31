@@ -1,7 +1,7 @@
 const AIModule = (() => {
     let array = [];
     let AI = {};
-    
+
 
     const RandomMove = () => {
         // this is only temporary solution
@@ -160,7 +160,6 @@ const AIModule = (() => {
         }
 
         gameboard.array = ["", "", "", "", "", "", "", "", ""]
-
         clearBoxes();
         makeCover();
     }
@@ -168,7 +167,6 @@ const AIModule = (() => {
     function renderScore(obj) {
         obj.score++;
         const scoreCounter = document.querySelector(`#${obj.id}`);
-        console.log(scoreCounter);
         scoreCounter.textContent = obj.score;
     }
 
@@ -209,7 +207,6 @@ const AIModule = (() => {
     function play() {
         let that = this;
         if (!this.classList.contains("taken")) {
-            console.log(player.symbol);
             if (playerTurn(that) !== "R") // to prevent AI from making move
                 aiTurn();
         }
