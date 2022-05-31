@@ -33,7 +33,7 @@
     function render(id) {
         for (let em of boxes) {
             if (em.id == id) {
-                em.textContent = "O";
+                em.textContent = AI.symbol;
                 em.classList.add("taken");
             }
         }
@@ -95,13 +95,27 @@
         }
     }
 
-    function newRound() {
+    function clearBoxes() {
         for (let em of boxes) {
             em.classList.remove("taken");
             em.textContent = "";
             em.addEventListener('click', play);
         }
+    }
 
+    function getSymbol() {
+        player.symbol = prompt("X or O");
+        if (player.symbol === "X") {
+            AI.symbol = "O";
+        } else {
+            AI.symbol = "X";
+            aiTurn(); 
+            // AI has to initiate move, because it is usually 
+            // responsive
+        }
+    }
+
+    function newRound() {
         try {
             document.querySelector("p").remove();
             document.querySelector("button").remove();
@@ -110,8 +124,11 @@
             // created yet, leave it like this untill decision for design is
             // made!
         }
-            
+
         gameboard.array = ["", "", "", "", "", "", "", "", ""]
+
+        clearBoxes();
+        getSymbol();
     }
 
     function renderScore(obj) {
@@ -121,30 +138,39 @@
         scoreCounter.textContent = obj.score;
     }
 
-    function play() {
-        if (!this.classList.contains("taken")) { // PLAYER MOVE
-            this.classList.add("taken");
-            this.textContent = "X";
-            makeMove(player, +this.id - 1);
-            if (checkForThree()) {
-                gameOver("PLAYER WON");
-                renderScore(player);
-                return;
-            }
+    function playerTurn(that) {
+        that.classList.add("taken");
+        that.textContent = player.symbol;
+        makeMove(player, +that.id - 1);
+        if (checkForThree()) {
+            gameOver(`YOU won!`);
+            renderScore(player);
+            return "R";
+        }
+    }
 
-            if (isThereSpaceLeft()) { // AI MOVE
-                let aiMoveIndex = generateAiMove();
-                makeMove(AI, aiMoveIndex - 1);
-                render(aiMoveIndex);
-                if (checkForThree()) {
-                    gameOver("AI WON");
-                    renderScore(AI);
-                    return;
-                }
-            } else {
-                gameOver("DRAW");
-                return;
+    function aiTurn() {
+        if (isThereSpaceLeft()) {
+            let aiMoveIndex = generateAiMove();
+            makeMove(AI, aiMoveIndex - 1);
+            render(aiMoveIndex);
+            if (checkForThree()) {
+                gameOver(`AI won!`);
+                renderScore(AI);
+                return "R";
             }
+        } else {
+            gameOver("DRAW");
+            return "R";
+        }
+    }
+
+    function play() {
+        let that = this;
+        if (!this.classList.contains("taken")) {
+            console.log(player.symbol);
+            if (playerTurn(that) !== "R") // to prevent AI from making move
+                aiTurn();
         }
     }
 

@@ -41,9 +41,11 @@ Kind of speedrun the next section. I basically finished the basic version of
 the game. The next step is to create a hidden element that shows at the 
 beginning or after a user chooses to play again. A window is opened and the 
 background is faded. The user is goven an option to choose either X or O. Based
-on that choice game runs differently. It is also a good choice to modify the 
+on that choice game runs differently. 
+It is also a good choice to modify the 
 play function, perhaps even create an object to control the flow of the game,
-I'll see. After that is done the last step is to create a strong AI, maybe even
+I'll see. 
+After that is done the last step is to create a strong AI, maybe even
 option to choose between the two, easy and hard. As for how the strong AI will 
 work, there are some algorithms such as minmax(), but I feel I can manage to 
 create an impossible to beat AI by creating a few core steps for AI to follow. 
