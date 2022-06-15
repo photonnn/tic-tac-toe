@@ -16,16 +16,149 @@ const AIModule = (() => {
         }
     }
 
+    function evaluate() {
+        // VERTICAL CHECK
+        for (let i = 0; i <= 2; i++) {
+            if (array[i] != "" && array[i] ===
+                array[i + 3] && array[i + 6] ===
+                array[i]) {
+                if (array[i] == "X") {
+                    return 10;
+                } else {
+                    return -10;
+                }
+            }
+        }
+
+        // HORIZONTAL CHECK
+        for (let i = 0; i < 9; i += 3) {
+            if (array[i] != "" && array[i] ===
+                array[i + 1] && array[i] ===
+                array[i + 2]) {
+                if (array[i] == "X") {
+                    return 10;
+                } else {
+                    return -10;
+                }
+            }
+        }
+
+        // DIAGONAL CHECK 
+        if (array[0] != "" && array[0] ===
+            array[4] && array[0] === array[8]) {
+            if (array[0] == "X") {
+                return 10;
+            } else {
+                return -10;
+            }
+        } else if (array[2] != "" && array[2] ===
+            array[4] && array[2] === array[6]) {
+            if (array[2] == "X") {
+                return 10;
+            } else {
+                return -10;
+            }
+        }
+        return 0;
+    }
+
+    function anyMovesLeft() {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] == "") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function minmax(array, depth, playerSymbol) {
+
+        let score = evaluate();
+
+        if (score == 10) {
+            return score;
+        }
+
+        if (score == -10) {
+            return score;
+        }
+
+        if (!anyMovesLeft()) {
+            return 0;
+        }
+
+        if (playerSymbol === "X") {
+            let maxEval = -1000;
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] == "") {
+                    array[i] = "X";
+                    maxEval = Math.max(maxEval, minmax(array, depth + 1, "O"));
+                    array[i] = "";
+                }
+            }
+            return maxEval;
+        }
+
+        else {
+            let minEval = 1000;
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] == "") {
+                    array[i] = "O";
+                    minEval = Math.min(minEval, minmax(array, depth + 1, "X"));
+                    array[i] = "";
+                }
+            }
+            return minEval;
+        }
+    }
+
     const generateMove = (arr, obj) => {
         array = arr;
+        console.log(arr);
         AI = obj;
 
-        return RandomMove();
+        let bestMove = {
+            value: -1000,
+            index: -1,
+        }
+
+        let para;
+
+        if (AI.symbol == "X") {
+            para = "O";
+            bestMove.value = -1000;
+        } else {
+            para = "X";
+            bestMove.value = 1000;
+        }
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] == "") {
+                array[i] = AI.symbol;
+
+                let moveValue = minmax(array, 0, para);
+                console.log(moveValue);
+
+                array[i] = "";
+                if (para == "O") {
+                    if (moveValue > bestMove.value) {
+                        bestMove.value = moveValue;
+                        bestMove.index = i;
+                    }
+                }  else {
+                    if (moveValue < bestMove.value) {
+                        bestMove.value = moveValue;
+                        bestMove.index = i;
+                    }
+                }
+            }
+        }
+        console.log(bestMove);
+        return bestMove.index + 1;
     }
     return { generateMove };
 })();
 
-(() => {
+const ticTacToe = (() => {
     const gameboard = {
         array: ["", "", "", "", "", "", "", "", ""],
     }
@@ -192,7 +325,7 @@ const AIModule = (() => {
 
     function aiTurn() {
         if (isThereSpaceLeft()) {
-            let aiMoveIndex = AIModule.generateMove();
+            let aiMoveIndex = AIModule.generateMove(gameboard.array, AI);
             makeMove(AI, aiMoveIndex - 1);
             render(aiMoveIndex);
             if (checkForThree()) {
